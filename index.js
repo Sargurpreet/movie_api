@@ -17,16 +17,22 @@ let users = [
   {
     id: 1,
     name: 'Simranpreet Kaur',
+    email: '',
+    password: '',
     favoriteMovie: []
   },
   {
     id: 2,
     name: 'Amrinder Singh',
+    email: '',
+    password: '',
     favoriteMovie: []
   },
   {
     id: 3,
     name: 'Jackson barros',
+    email: '',
+    password: '',
     favoriteMovie: []
   }
 ];
@@ -89,26 +95,35 @@ app.get('/', (req, res) => {
 
 //Create a user
 app.post('/users', (req, res) => {
-  const newUser = req.body;
+  const {name, email, password} = req.body;
 
-  if (newUser.name) {
-      newUser.id = uuid.v4();
+  if (email && password) {
+    const newUser = {
+      id: uuid.v4(),
+      name: name,
+      email: email,
+      password: password,
+      favoriteMovie: []
+    };
       users.push(newUser);
       res.status(201).json(newUser);
   } else {
-      res.status(400).send('Name field required.');
+      res.status(400).send('Username and password are required.');
   }
 });
 
 //Update a user id
 app.put('/users/:id', (req, res) => {
   const { id } = req.params;
-  const updatedUser = req.body;
+  const {password, email, favoriteMovie, updatedUser} = req.body;
 
   let user = users.find(user => user.id == id);
 
   if (user) {
-      user.name = updatedUser.name;
+      user.password = password;
+      user.email = email;
+      user.favoriteMovie = favoriteMovie;
+      Object.assign(user, updatedUser);
       res.status(200).json(user);
   } else {
       res.status(400).send('User not found.')
@@ -181,10 +196,10 @@ app.get('/movies/:title', (req, res) =>{
 //Read movies by genre
 app.get('/movies/genre/:genreName', (req, res) => {
   const {genreName} = req.params;
-  const genre = movies.find(movie => movie.Genre.Name === genreName).Genre;
+  const genre = movies.find(movie => movie.Genre.Name === genreName);
 
-  if (genre) {
-    res.status(200).json(genre);
+  if (genre && genre.Genre) {
+    res.status(200).json(genre.Genre);
   } else{
     res.status(400).send('No such genre exist in data');
   }
@@ -193,10 +208,10 @@ app.get('/movies/genre/:genreName', (req, res) => {
 //Read movies by director
 app.get('/movies/directors/:directorName', (req, res) => {
   const {directorName} = req.params;
-  const director = movies.find(movie => movie.Directors.Name === directorName).Directors;
+  const director = movies.find(movie => movie.Directors.Name === directorName);
 
-  if (director) {
-    res.status(200).json(director);
+  if (director && director.Directors) {
+    res.status(200).json(director.Directors);
   } else{
     res.status(400).send('No such genre exist in data');
   }
