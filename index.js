@@ -115,15 +115,13 @@ app.post('/users', (req, res) => {
 //Update a user id
 app.put('/users/:id', (req, res) => {
   const { id } = req.params;
-  const {password, email, favoriteMovie, updatedUser} = req.body;
+  const {name, password} = req.body;
 
-  let user = users.find(user => user.id == id);
+  let user = users.find((user) => user.id == id);
 
   if (user) {
-      user.password = password;
-      user.email = email;
-      user.favoriteMovie = favoriteMovie;
-      Object.assign(user, updatedUser);
+      if (name) user = {...user, name};
+      if (password) user = {...user, password};
       res.status(200).json(user);
   } else {
       res.status(400).send('User not found.')
