@@ -8,6 +8,7 @@ const app = express();
 const fs = require("fs");
 const path = require("path");
 const Models = require('./models.js');
+const { error } = require('console');
 
 
 const Movies = Models.Movie;
@@ -47,6 +48,39 @@ app.get('/movies', (req, res) => {
     });
 });  
 
+
+//Read one movie by title
+app.get('/movies/:title', (req, res) =>{
+  Movies.findOne({ Title: req.params.title }).then((movies) => {
+    res.status(200).json(movies);
+  }).catch((err) => {
+    console.error(err);
+    res.status(500).send('Error: ' +err ); 
+  });
+});
+
+//Read movies by genre
+app.get('/movies/genre/:genreName', (req, res) => {
+  Movies.find({ 'Genre.Name': req.params.genreName }).then((movies) => {
+    res.status(200).json(movies);
+  }).catch((err) => {
+    res.status(500).send('Error: ' + err);
+  });
+});
+
+
+//Read movies by director
+app.get('/movies/directors/:directorName', (req, res) => {
+  Movies.find({ 'Director.Name': req.params.directorName }).then((movies) => {
+    res.status(200).json(movies);
+  }).catch((err) => {
+    res.status(500).send('Error: ' + err);
+  });
+});
+
+
+
+
 //Get all users
 app.get('/users', (req, res) => {
   Users.find()
@@ -58,6 +92,18 @@ app.get('/users', (req, res) => {
       res.status(500).send('Error: ' + err);
     });
 });
+//Get a user by username
+
+app.get('/users/:Name', (req, res)=> {
+  Users.findOne({Name: req.params.Name })
+  .then((user) => {
+    res.json(user);
+  })
+  .catch((err) => {
+    res.status(500).send('Error: ' + err);
+  });
+});
+
 
 //Create a new user adding it to database
 app.post('/users', (req, res) => {
@@ -106,41 +152,47 @@ app.put('/users/:Name', (req, res) => {
   });
 });
 
-//Create a movie title
+// Add a movie to the fav list of the user
 app.post('/users/:Name/movies/:MovieID', (req, res) => {
   Users.findOneAndUpdate(
     { Name: req.params.Name },
     {
-      $addToSet: {FavoriteMovie: req.params.MovieID }
+      $addToSet: { FavoriteMovies: req.params.MovieiD },
     },
     { new: true }
-  ).then((updateUser) => {
+  )
+  .then((updateUser) => {
     if(!updateUser) {
-      return res.status(404).send("Error: User doesn't exist");
+      return res.status(404).send('Error: User was not found');
     } else {
       res.json(updateUser);
     }
-  }).catch((error) => {
-    console.error(error);
-    res.status(500).send('Error: ' + error);
-  });  
+  })
+  .catch((error) => {
+    console.error(err);
+    res.status(500).send('Error: ' +err);
+  });
 });
+
+
+
 
 
 //Delete the user by username
 app.delete('/users/:Name', (req, res) => {
-  User.findOneAndRemove({ Name: req.params.Name}).then((user) => {
+  Users.findOneAndRemove( {Name: req.params.Name })
+  .then((user) => {
     if(!user) {
       res.status(400).send(req.params.Name + ' was not found');
     } else {
       res.status(200).send(req.params.Name + ' was deleted');
     }
-  }).catch((err) => {
+  })
+  .catch((err) => {
     console.error(err);
     res.status(500).send('Error: ' + err);
   });
 });
-
 
 //Delete the movie from the users 
 app.delete('/users/:Name/movies/:MovieID', (req, res) => {
@@ -162,38 +214,6 @@ app.delete('/users/:Name/movies/:MovieID', (req, res) => {
   });
 });
 
-
-
-
-
-//Read one movie by title
-app.get('/movies/:title', (req, res) =>{
-  Movies.findOne({ Title: req.params.title }).then((movies) => {
-    res.status(200).json(movies);
-  }).catch((err) => {
-    console.error(err);
-    res.status(500).send('Error: ' +err ); 
-  });
-});
-
-//Read movies by genre
-app.get('/movies/genre/:genreName', (req, res) => {
-  Movies.find({ 'Genre.Name': req.params.genreName }).then((movies) => {
-    res.status(200).json(movies);
-  }).catch((err) => {
-    res.status(500).send('Error: ' + err);
-  });
-});
-
-
-//Read movies by director
-app.get('/movies/directors/:directorName', (req, res) => {
-  Movies.find({ 'Director.Name': req.params.directorName }).then((movies) => {
-    res.status(200).json(movies);
-  }).catch((err) => {
-    res.status(500).send('Error: ' + err);
-  });
-});
 
 app.use(express.static('public'));
 
