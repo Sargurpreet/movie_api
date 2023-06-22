@@ -36,6 +36,50 @@ app.get('/', (req, res) => {
 });
 
 
+//Create a new director adding it to database
+app.post('/director', (req, res) => {
+  Director.findOne({Name: req.body.Name}).then((director) => {
+    if (director){
+      return res.status(400).send(req.body.Name + 'already exists');
+    } else {
+      Director.create({
+        Name: req.body.Name,
+        Bio: req.body.Bio,
+        Birth: req.body.Birth,
+        Death: req.body.Death        
+      }).then((director) => {
+        res.status(201).json(director);
+      }).catch((error) => {
+        console.error(error);
+        res.status(500).send('Error: ' + error);
+      });
+    }
+  });
+});
+
+
+//Create a new director adding it to database
+app.post('/genre', (req, res) => {
+  Genre.findOne({Name: req.body.Name}).then((genre) => {
+    if (genre){
+      return res.status(400).send(req.body.Name + 'already exists');
+    } else {
+      Genre.create({
+        Name: req.body.Name,
+        Description: req.body.Description      
+      }).then((genre) => {
+        res.status(201).json(genre);
+      }).catch((error) => {
+        console.error(error);
+        res.status(500).send('Error: ' + error);
+      });
+    }
+  });
+});
+
+
+
+
 //Get all the movies
 app.get('/movies', (req, res) => {
   Movies.find()
@@ -47,6 +91,31 @@ app.get('/movies', (req, res) => {
       res.status(500).send('Error: ' + err);
     });
 });  
+
+
+//Get all the genre
+app.get('/genre', (req, res) => {
+  Genre.find()
+    .then((genre) => {
+      res.status(201).json(genre);
+    })
+    .catch((err) => {
+      console.error(err);
+      res.status(500).send('Error: ' + err);
+    });
+}); 
+
+//Get all the director
+app.get('/director', (req, res) => {
+  Director.find()
+    .then((director) => {
+      res.status(201).json(director);
+    })
+    .catch((err) => {
+      console.error(err);
+      res.status(500).send('Error: ' + err);
+    });
+}); 
 
 
 //Read one movie by title
@@ -70,14 +139,33 @@ app.get('/movies/genre/:genreName', (req, res) => {
 
 
 //Read movies by director
-app.get('/movies/directors/:directorName', (req, res) => {
-  Movies.find({ 'Director.Name': req.params.directorName }).then((movies) => {
-    res.status(200).json(movies);
-  }).catch((err) => {
-    res.status(500).send('Error: ' + err);
-  });
+app.get('/movies/director/:directorId', (req, res) => {
+const {directorId} = req.params;
+
+Movies.find({ director: directorId })
+.populate('director genre')
+.then((movies) => {
+  res.status(201).json(movies);
+})
+.catch((err) => {
+  res.status(500).send('Error: ' + err);
+});
 });
 
+
+//Read all the movies by a genre
+app.get('/movies/genre/:genreId', (req, res) => {
+  const { genreId } = req.params;
+
+  Movie.find({ genre: genreId})
+  .populate('director genre')
+  .then((movies) => {
+    res.status(201).json(director);
+  })
+  .catch((err) => {
+    res.status(500).send('Error:' + err);
+  })
+});
 
 
 
@@ -225,4 +313,3 @@ app.use((err, req, res, next) => {
 
 
 app.listen(3000, () => console.log('Server started on port 3000'));
-
