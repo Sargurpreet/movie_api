@@ -1,178 +1,761 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Documentation</title>
-  <style>
-    table, th, td {
-      border: 1px, solid;
-    }
-  </style>
-</head>
-<body>
-  <h1>Documentation myFlix</h1>
-    <h4>INSTRUCTIONS:</h4>
-        <p>This app is designed to navigate you in the world of best movies made!</p>
-        <p>Here you will find information about different movies, directors, and genres. </p>
-        <p>You can sign up, update personal info, and create a list of favorite movies. </p>
-        <h1>This is the Documentation for myFlix</h1>
-
-        <p>This is an application that will let you sort through different genres of movies <br>
-            and directors, and let you save your favorite movies to your account.
-        </p>
-    
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>API Documentation | myFlix</title>
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <div class="container">
+      <h1>API Documentation</h1>
+      <!-- GET all movies -->
+      <div class="endpoint">
+        <h2><span class="http-method get">GET</span> /movie</h2>
+        <p>Return a list of ALL movies to the user</p>
         <table>
-          <thead>
-            <tr>
-              <th>Business Logic</th>
-              <th>URL</th>
-              <th>HTTP Method</th>
-              <th>Query Parameters</th>
-              <th>Request Body Data Format</th>
-              <th>Response Body Data Format</th>
-            </tr>
-          </thead>
-    
-          <tbody>
-            <tr>
-              <td>Create a data about a director</td>
-              <td>/director</td>
-              <td>POST</td>
-              <td>None</td>
-              <td>A JSON object of the new user, structured like: {"Name": "", "Bio":"","Birth":"","Death":""}</td>
-              <td>A JSON object of the new user added, structured like: {"Name": "", "Bio":"","Birth":"","Death":""}</td></td>
-            </tr>
+          <tr>
+            <th>Parameter</th>
+            <th>Type</th>
+            <th>Description</th>
+          </tr>
+          <!-- REQUEST body data -->
+          <tr>
+            <td>Request body data format</td>
+            <td>JSON</td>
+            <td>
+              <pre>None</pre>
+            </td>
+          </tr>
+          <!-- RESPONSE body data -->
+          <tr>
+            <td>Response body data format</td>
+            <td>JSON</td>
+            <td>
+              <pre>
+[
+  {
+    "_id": "6496dce46e939f452e176af3",
+      "Title": "Funny people",
+      "Description": "Comedian George Simmons discovers that he has a terminal illness. Eager to form a true friendship, he agrees to take a rookie under his wing as an opening act.",
+      "Director": "6496d85afd12b96beb80673a",
+      "Genre": "6496d712fd12b96beb806726",
+      "ImagePath": "funnyP.png",
+      "Featured": false
+  }
+]
+              </pre>
+            </td>
+          </tr>
+        </table>
+      </div>    
+      <!-- GET all genres -->
+      <div class="endpoint">
+        <h2><span class="http-method get">GET</span> /genre</h2>
+        <p>Return a list of ALL genres to the user</p>
+        <table>
+          <tr>
+            <th>Parameter</th>
+            <th>Type</th>
+            <th>Description</th>
+          </tr>
+          <!-- REQUEST body data -->
+          <tr>
+            <td>Request body data format</td>
+            <td>JSON</td>
+            <td>
+              <pre>None</pre>
+            </td>
+          </tr>
+          <!-- RESPONSE body data -->
+          <tr>
+            <td>Response body data format</td>
+            <td>JSON</td>
+            <td>
+              <pre>
+[
+  {
+    "_id": "6496be17e2d5ab4d526fd762",
+    "Name": "Action",
+    "Description": "An extremely successful and influential mode of popular cinema that foregrounds spectacular movement of bodies, vehicles and weapons, and state-of-the-art special effects.",
+    "__v": 0
+  }
+]
+              </pre>
+            </td>
+          </tr>
+        </table>
+      </div>
+      <!-- GET all directors -->
+      <div class="endpoint">
+        <h2><span class="http-method get">GET</span> /director</h2>
+        <p>Return a list of ALL directors to the user</p>
+        <table>
+          <tr>
+            <th>Parameter</th>
+            <th>Type</th>
+            <th>Description</th>
+          </tr>
+          <!-- REQUEST body data -->
+          <tr>
+            <td>Request body data format</td>
+            <td>JSON</td>
+            <td>
+              <pre>None</pre>
+            </td>
+          </tr>
+          <!-- RESPONSE body data -->
+          <tr>
+            <td>Response body data format</td>
+            <td>JSON</td>
+            <td>
+              <pre>
+[
+  {
+    "_id": "6496bd62e2d5ab4d526fd75e",
+    "Name": "Christopher Nolan",
+    "Bio": "Christopher Nolan is a British-American film director, screenwriter, producer and editor.",
+    "Birth": "1970-07-30",
+    "Death": "null",
+    "__v": 0
+  }
+]
+              </pre>
+            </td>
+          </tr>
+        </table>
+      </div>
+      <!-- GET movie data about a single movie -->
+      <div class="endpoint">
+        <h2><span class="http-method get">GET</span> /movies/{title}</h2>
+        <p>Return data (Title, Description, Director, Genre, ImagePath, whether it's featured or not) about a single movie by title to the user</p>
+        <table>
+          <tr>
+            <th>Parameter</th>
+            <th>Type</th>
+            <th>Description</th>
+          </tr>
+          <!-- PARAMETER title -->
+          <tr>
+            <td>title</td>
+            <td>Text</td>
+            <td>
+              <pre>e.g. "Funny people", "Interstellar"</pre>
+            </td>
+          </tr>
+          <!-- REQUEST body data -->
+          <tr>
+            <td>Request body data format</td>
+            <td>JSON</td>
+            <td>
+              <pre>None</pre>
+            </td>
+          </tr>
+          <!-- RESPONSE body data -->
+          <tr>
+            <td>Response body data format</td>
+            <td>JSON</td>
+            <td>
+              <pre>
 
-            <tr>
-              <td>Create a data about a genre of movie</td>
-              <td>/genre</td>
-              <td>POST</td>
-              <td>None</td>
-              <td>A JSON object of the new user, structured like: {"Name": "", "Description":""}</td>
-              <td>A JSON object of the new user added, structured like: {"Name": "", "Description":""}</td></td>
-            </tr>
-
-            <tr>
-              <td>Returns a list of all movies</td>
-              <td>/movie</td>
-              <td>GET</td>
-              <td>None</td>
-              <td>None</td>
-              <td>A JSON object of all the movies</td>
-            </tr>
-            
-            <tr>
-              <td>Returns a list of all genres</td>
-              <td>/genre</td>
-              <td>GET</td>
-              <td>None</td>
-              <td>None</td>
-              <td>A JSON object of all the genres</td>
-            </tr>
-
-            <tr>
-              <td>Returns a list of all directors</td>
-              <td>/director</td>
-              <td>GET</td>
-              <td>None</td>
-              <td>None</td>
-              <td>A JSON object of all the directors</td>
-            </tr>
-    
-            <tr>
-              <td>Returns data about single movie by title</td>
-              <td>/movie/:title</td>
-              <td>GET</td>
-              <td>:Title</td>
-              <td>None</td>
-              <td>A JSON object of a single movie</td>
-            </tr>
-
-            <tr>
-              <td>Returns the movies of a director by director Id</td>
-              <td>/movies/directors/:directorId</td>
-              <td>GET</td>
-              <td>:directorId</td>
-              <td>None</td>
-              <td>A JSON object of a specific director</td>
-            </tr>
-                
-            <tr>
-              <td>Returns the movies of a genre by genre Id</td>
-              <td>/movies/genres/:genreId</td>
-              <td>GET</td>
-              <td>:genreName</td>
-              <td>None</td>
-              <td>A JSON object of a specific genre</td>
-            </tr>
-
-            <tr>
-              <td>Returns a list of all users</td>
-              <td>/user</td>
-              <td>GET</td>
-              <td>None</td>
-              <td>None</td>
-              <td>A JSON object of all the users</td>
-            </tr>
-
-            <tr>
-              <td>Returns data about user by user name</td>
-              <td>/user/:Name</td>
-              <td>GET</td>
-              <td>:Title</td>
-              <td>None</td>
-              <td>A JSON object of a user</td>
-            </tr>
-    
-            <tr>
-              <td>Allows a user to be created</td>
-              <td>/user</td>
-              <td>POST</td>
-              <td>None</td>
-              <td>A JSON object of the new user, structured like: {"Username": "", "Password":"","Email":"","Birthday":"", "id": "", "favoriteMovie": ""}</td>
-              <td>A JSON object of the new user added, structured like: {"Username": "", "Password":"","Email":"","Birthday":"", "id": "", "favoriteMovie": ""}</td>
-            </tr>
-            
-            <tr>
-              <td>Allows users to change their data</td>
-              <td>/users/:Name</td>
-              <td>PUT</td>
-              <td>:Name</td>
-              <td>None</td>
-              <td>A JSON object of the user</td>
-            </tr>
-    
-            <tr>
-              <td>Allows users to add a movie to their favorites</td>
-              <td>/users/:Name/movie/:MovieID</td>
-              <td>POST</td>
-              <td>:id, :MovieID</td>
-              <td>None</td>
-              <td>A JSON object holding data about the user and the movie that was added</td>
-            </tr>
-            
-            <tr>
-              <td>Allows a user to be deleted</td>
-              <td>/users/:Name</td>
-              <td>DELETE</td>
-              <td>:Name</td>
-              <td>None</td>
-              <td>Text confirming the user has been deleted</td>
-            </tr>
-            
-            <tr>
-              <td>Allows users to remove a movie from their favorites</td>
-              <td>/user/:Name/movie/:MovieID</td>
-              <td>DELETE</td>
-              <td>:id, :MovieID</td>
-              <td>None</td>
-              <td>A JSON object holding data about the user and the movie that was removed</td>
-            </tr>
-    
-          
-    
-          </tbody>
-</body>
+[
+  {
+    "_id": "6496dce46e939f452e176af3",
+    "Title": "Funny people",
+    "Description": "Comedian George Simmons discovers that he has a terminal illness. Eager to form a true friendship, he agrees to take a rookie under his wing as an opening act.",
+    "Director": "6496d85afd12b96beb80673a",
+    "Genre": "6496d712fd12b96beb806726",
+    "ImagePath": "funnyP.png",
+    "Featured": false
+  }
+]
+              </pre>
+            </td>
+          </tr>
+        </table>
+      </div>
+      <!-- GET all movies related to a specific genre -->
+      <div class="endpoint">
+        <h2><span class="http-method get">GET</span> /movies/genre/{genreId}</h2>
+        <p>Return all movies that are related to a specific genre</p>
+        <table>
+          <tr>
+            <th>Parameter</th>
+            <th>Type</th>
+            <th>Description</th>
+          </tr>
+          <!-- PARAMETER title -->
+          <tr>
+            <td>genreId</td>
+            <td>Text</td>
+            <td>
+              <pre>e.g. "6496dce46e939f452e176af3", "6496dce46e939f452e176ad5"</pre>
+            </td>
+          </tr>
+          <!-- REQUEST body data -->
+          <tr>
+            <td>Request body data format</td>
+            <td>JSON</td>
+            <td>
+              <pre>None</pre>
+            </td>
+          </tr>
+          <!-- RESPONSE body data -->
+          <tr>
+            <td>Response body data format</td>
+            <td>JSON</td>
+            <td>
+              <pre>
+[
+  {
+    "_id": "6496dce46e939f452e176af3",
+    "Title": "Funny people",
+    "Description": "Comedian George Simmons discovers that he has a terminal illness. Eager to form a true friendship, he agrees to take a rookie under his wing as an opening act.",
+    "Director": {
+        "_id": "6496d85afd12b96beb80673a",
+        "Name": "Judd Apatow",
+        "Bio": "American writer, director, and producer known for creating offbeat comedies featuring unconventional protagonists.",
+        "Birth": "1967-12-06",
+        "Death": "null",
+        "__v": 0
+    },
+    "Genre": {
+        "_id": "6496d712fd12b96beb806726",
+        "Name": "Comedy",
+        "Description": "Comedy is a genre of film in which the main emphasis is on humor. These films are designed to make the audience laugh through amusement and most often work by exaggerating characteristics for humorous effect.",
+        "__v": 0
+    },
+    "ImagePath": "funnyP.png",
+    "Featured": false
+  }
+]
+              </pre>
+            </td>
+          </tr>
+        </table>
+      </div>
+      <!-- POST add a new director -->
+      <div class="endpoint">
+        <h2><span class="http-method post">POST</span> /director</h2>
+        <p>Allow new director to register</p>
+        <table>
+          <tr>
+            <th>Parameter</th>
+            <th>Type</th>
+            <th>Description</th>
+          </tr>
+          <!-- REQUEST body data -->
+          <tr>
+            <td>Request body data format</td>
+            <td>JSON</td>
+            <td>
+              <pre>
+{
+  "Name": "Christopher Nolan",
+  "Bio": "Christopher Nolan is a British-American film director, screenwriter, producer and editor.",
+  "Birth": "1970-07-30",
+  "Death": "null"
+}
+            </pre>
+            </td>
+          </tr>
+          <!-- RESPONSE body data -->
+          <tr>
+            <td>Response body data format</td>
+            <td>JSON</td>
+            <td>
+              <pre>
+{
+  "_id": "6496bd62e2d5ab4d526fd75e",
+  "Name": "Christopher Nolan",
+  "Bio": "Christopher Nolan is a British-American film director, screenwriter, producer and editor.",
+  "Birth": "1970-07-30",
+  "Death": "null",
+  "__v": 0
+}
+              </pre>
+            </td>
+          </tr>
+        </table>
+      </div>
+      <!-- POST add a new user -->
+      <div class="endpoint">
+        <h2><span class="http-method post">POST</span> /genre</h2>
+        <p>Allow new genre to register</p>
+        <table>
+          <tr>
+            <th>Parameter</th>
+            <th>Type</th>
+            <th>Description</th>
+          </tr>
+          <!-- REQUEST body data -->
+          <tr>
+            <td>Request body data format</td>
+            <td>JSON</td>
+            <td>
+              <pre>
+{
+  "Name": "Action",
+  "Description": "An extremely successful and influential mode of popular cinema that foregrounds spectacular movement of bodies, vehicles and weapons, and state-of-the-art special effects."
+}
+            </pre>
+            </td>
+          </tr>
+          <!-- RESPONSE body data -->
+          <tr>
+            <td>Response body data format</td>
+            <td>JSON</td>
+            <td>
+              <pre>
+{
+  "_id": "6496be17e2d5ab4d526fd762",
+  "Name": "Action",
+  "Description": "An extremely successful and influential mode of popular cinema that foregrounds spectacular movement of bodies, vehicles and weapons, and state-of-the-art special effects.",
+  "__v": 0
+}
+              </pre>
+            </td>
+          </tr>
+        </table>
+      </div>
+      <!-- GET all movies related to a specific director -->
+      <div class="endpoint">
+        <h2><span class="http-method get">GET</span> /movies/director/{directorId}</h2>
+        <p>Return all movies that are related to a specific director</p>
+        <table>
+          <tr>
+            <th>Parameter</th>
+            <th>Type</th>
+            <th>Description</th>
+          </tr>
+          <!-- PARAMETER title -->
+          <tr>
+            <td>directorId</td>
+            <td>Text</td>
+            <td>
+              <pre>e.g. "6496bd62e2d5ab4d526fd75e", "6496d819fd12b96beb806736"</pre>
+            </td>
+          </tr>
+          <!-- REQUEST body data -->
+          <tr>
+            <td>Request body data format</td>
+            <td>JSON</td>
+            <td>
+              <pre>None</pre>
+            </td>
+          </tr>
+          <!-- RESPONSE body data -->
+          <tr>
+            <td>Response body data format</td>
+            <td>JSON</td>
+            <td>
+              <pre>
+[
+  {
+    "_id": "6496e101b41f18ba27b9f1e5",
+    "Title": "Interstellar",
+    "Description": "Set in a future where a failing Earth puts humanity on the brink of extinction, it sees an intrepid team of NASA scientists, engineers and pilots attempt to find a new habitable planet, via interstellar travel.",
+    "Director": {
+        "_id": "6496bd62e2d5ab4d526fd75e",
+        "Name": "Christopher Nolan",
+        "Bio": "Christopher Nolan is a British-American film director, screenwriter, producer and editor.",
+        "Birth": "1970-07-30",
+        "Death": "null",
+        "__v": 0
+    },
+    "Genre": {
+        "_id": "6496d73ffd12b96beb80672a",
+        "Name": "Science-fiction",
+        "Description": "It is a genre of speculative fiction that contains imagined elements that do not exist in the real world.",
+        "__v": 0
+    },
+    "ImagePath": "interstellar.png",
+    "Featured": true
+  }
+]
+              </pre>
+            </td>
+          </tr>
+        </table>
+      </div>
+      <!-- GET details about a genre by genre name -->
+      <div class="endpoint">
+        <h2><span class="http-method get">GET</span> /genre/{genreName}</h2>
+        <p>Return data about a genre by genre name</p>
+        <table>
+          <tr>
+            <th>Parameter</th>
+            <th>Type</th>
+            <th>Description</th>
+          </tr>
+          <!-- PARAMETER title -->
+          <tr>
+            <td>genreName</td>
+            <td>Text</td>
+            <td>
+              <pre>e.g. "Animation", "Drama"</pre>
+            </td>
+          </tr>
+          <!-- REQUEST body data -->
+          <tr>
+            <td>Request body data format</td>
+            <td>JSON</td>
+            <td>
+              <pre>None</pre>
+            </td>
+          </tr>
+          <!-- RESPONSE body data -->
+          <tr>
+            <td>Response body data format</td>
+            <td>JSON</td>
+            <td>
+              <pre>
+{
+  "_id": "64462577a5f5577c2975ae6d",
+  "name": "Action",
+  "description": "Typically associated with movies that involve a lot of physical activity, such as fighting, chasing, and shooting, as well as films that feature a lot of explosions and special effects."
+}
+              </pre>
+            </td>
+          </tr>
+        </table>
+      </div>
+      <!-- GET details about a director by director name -->
+      <div class="endpoint">
+        <h2><span class="http-method get">GET</span> /director/{directorName}</h2>
+        <p>Return data about a director (name, bio, birth year, death year) by director name</p>
+        <table>
+          <tr>
+            <th>Parameter</th>
+            <th>Type</th>
+            <th>Description</th>
+          </tr>
+          <!-- PARAMETER title -->
+          <tr>
+            <td>directorName</td>
+            <td>Text</td>
+            <td>
+              <pre>e.g. "Christopher Nolan"</pre>
+            </td>
+          </tr>
+          <!-- REQUEST body data -->
+          <tr>
+            <td>Request body data format</td>
+            <td>JSON</td>
+            <td>
+              <pre>None</pre>
+            </td>
+          </tr>
+          <!-- RESPONSE body data -->
+          <tr>
+            <td>Response body data format</td>
+            <td>JSON</td>
+            <td>
+              <pre>
+{
+  "_id": "6496bd62e2d5ab4d526fd75e",
+  "Name": "Christopher Nolan",
+  "Bio": "Christopher Nolan is a British-American film director, screenwriter, producer and editor.",
+  "Birth": "1970-07-30",
+  "Death": "null",
+  "__v": 0
+}
+              </pre>
+            </td>
+          </tr>
+        </table>
+      </div>           
+      <!-- GET all users -->
+      <div class="endpoint">
+        <h2><span class="http-method get">GET</span> /user</h2>
+        <p>Return a list of ALL movies to the user</p>
+        <table>
+          <tr>
+            <th>Parameter</th>
+            <th>Type</th>
+            <th>Description</th>
+          </tr>
+          <!-- REQUEST body data -->
+          <tr>
+            <td>Request body data format</td>
+            <td>JSON</td>
+            <td>
+              <pre>None</pre>
+            </td>
+          </tr>
+          <!-- RESPONSE body data -->
+          <tr>
+            <td>Response body data format</td>
+            <td>JSON</td>
+            <td>
+              <pre>
+[
+  {
+    "_id": "6496e41ebaeda109f4bb5fec",
+    "Name": "Simranpreet Kaur",
+    "Password": "Simran",
+    "Email": "simran@gmail.com",
+    "Birthday": "1995-10-29T00:00:00.000Z",
+    "FavoriteMovies": [
+        "6496dd196e939f452e176af4",
+        "6496dfb0b41f18ba27b9f1e3"
+    ],
+    "__v": 0
+  }
+]
+              </pre>
+            </td>
+          </tr>
+        </table>
+      </div>
+      <!-- GET details about a user by user name -->
+      <div class="endpoint">
+        <h2><span class="http-method get">GET</span> /directors/{Name}</h2>
+        <p>Return data about a director (name, bio, birth year, death year) by director name</p>
+        <table>
+          <tr>
+            <th>Parameter</th>
+            <th>Type</th>
+            <th>Description</th>
+          </tr>
+          <!-- PARAMETER title -->
+          <tr>
+            <td>Name</td>
+            <td>Text</td>
+            <td>
+              <pre>e.g. "Amrinder Singh"</pre>
+            </td>
+          </tr>
+          <!-- REQUEST body data -->
+          <tr>
+            <td>Request body data format</td>
+            <td>JSON</td>
+            <td>
+              <pre>None</pre>
+            </td>
+          </tr>
+          <!-- RESPONSE body data -->
+          <tr>
+            <td>Response body data format</td>
+            <td>JSON</td>
+            <td>
+              <pre>
+{
+  "_id": "6496e47abaeda109f4bb5ff0",
+  "Name": "Amrinder Singh",
+  "Password": "ami123",
+  "Email": "ami@gmail.com",
+  "Birthday": "1993-10-18T00:00:00.000Z",
+  "FavoriteMovies": [],
+  "__v": 0
+}
+              </pre>
+            </td>
+          </tr>
+        </table>
+      </div> 
+      <!-- POST add a new favorite movie -->
+      <div class="endpoint">
+        <h2><span class="http-method post">POST</span> /users/{Name}/movies/{MovieID}</h2>
+        <p>Allow users to add movies to their list of favorite movies</p>
+        <table>
+          <tr>
+            <th>Parameter</th>
+            <th>Type</th>
+            <th>Description</th>
+          </tr>
+          <!-- PARAMETER userID -->
+          <tr>
+            <td>Name</td>
+            <td>Text</td>
+            <td>
+              <pre>e.g. "marymason"</pre>
+            </td>
+          </tr>
+          <!-- PARAMETER movieTitle -->
+          <tr>
+            <td>movieID</td>
+            <td>Text</td>
+            <td>
+              <pre>e.g. "6496dd196e939f452e176af4"</pre>
+            </td>
+          </tr>
+          <!-- REQUEST body data -->
+          <tr>
+            <td>Request body data format</td>
+            <td>JSON</td>
+            <td>
+              <pre>None</pre>
+            </td>
+          </tr>
+          <!-- RESPONSE body data -->
+          <tr>
+            <td>Response body data format</td>
+            <td>Text</td>
+            <td>
+              <pre>
+{
+  "_id": "6496e41ebaeda109f4bb5fec",
+  "Name": "Simranpreet Kaur",
+  "Password": "Simran",
+  "Email": "simran@gmail.com",
+  "Birthday": "1995-10-29T00:00:00.000Z",
+  "FavoriteMovies": [
+    "6496dd196e939f452e176af4",
+    "6496dfb0b41f18ba27b9f1e3"
+  ],
+  "__v": 0
+}              
+              </pre>
+            </td>
+          </tr>
+        </table>
+      </div>    
+      <!-- PUT update user info -->
+      <div class="endpoint">
+        <h2><span class="http-method put">PUT</span> /user/{Name}</h2>
+        <p>Allow users to update their user info</p>
+        <table>
+          <tr>
+            <th>Parameter</th>
+            <th>Type</th>
+            <th>Description</th>
+          </tr>
+          <!-- PARAMETER userID -->
+          <tr>
+            <td>Name</td>
+            <td>Text</td>
+            <td>
+              <pre>e.g. "Amrinder"</pre>
+            </td>
+          </tr>
+          <!-- REQUEST body data -->
+          <tr>
+            <td>Request body data format</td>
+            <td>JSON</td>
+            <td>
+              <pre>
+{
+  "Name": "Amrinder Singh",
+  "Password": "ami123",
+  "Email": "ami@gmail.com",
+  "Birthday": "1993-10-18"
+}
+              </pre>
+            </td>
+          </tr>
+          <!-- RESPONSE body data -->
+          <tr>
+            <td>Response body data format</td>
+            <td>JSON</td>
+            <td>
+              <pre>
+{
+  "_id": "6496e47abaeda109f4bb5ff0",
+  "Name": "Amrinder Singh",
+  "Password": "ami123",
+  "Email": "ami@gmail.com",
+  "Birthday": "1993-10-18T00:00:00.000Z",
+  "FavoriteMovies": [],
+  "__v": 0
+}            
+            </pre>
+            </td>
+          </tr>
+        </table>
+      </div>  
+      <!-- DELETE remove a favorite movie -->
+      <div class="endpoint">
+        <h2><span class="http-method delete">DELETE</span> /user/{Name}/movie/{MovieID}</h2>
+        <p>Allow users to remove a movie from their list of favorite movies</p>
+        <table>
+          <tr>
+            <th>Parameter</th>
+            <th>Type</th>
+            <th>Description</th>
+          </tr>
+          <!-- PARAMETER userID -->
+          <tr>
+            <td>Name</td>
+            <td>Text</td>
+            <td>
+              <pre>e.g. "Amrinder"</pre>
+            </td>
+          </tr>
+          <!-- PARAMETER movieTitle -->
+          <tr>
+            <td>MovieID</td>
+            <td>Text</td>
+            <td>
+              <pre>e.g. "6496e47abaeda109f4bb5ff0"</pre>
+            </td>
+          </tr>
+          <!-- REQUEST body data -->
+          <tr>
+            <td>Request body data format</td>
+            <td>JSON</td>
+            <td>
+              <pre>None</pre>
+            </td>
+          </tr>
+          <!-- RESPONSE body data -->
+          <tr>
+            <td>Response body data format</td>
+            <td>Text</td>
+            <td>
+              <pre>
+{
+  "_id": "6496e41ebaeda109f4bb5fec",
+  "Name": "Simranpreet Kaur",
+  "Password": "Simran",
+  "Email": "simran@gmail.com",
+  "Birthday": "1995-10-29T00:00:00.000Z",
+  "FavoriteMovies": [
+      "6496dd196e939f452e176af4"
+  ],
+  "__v": 0
+}
+              </pre>
+            </td>
+          </tr>
+        </table>
+      </div>     
+      <!-- DELETE a user -->
+      <div class="endpoint">
+        <h2><span class="http-method delete">DELETE</span> /users/{Name}</h2>
+        <p>Allow existing users to deregister and delete their user account</p>
+        <table>
+          <tr>
+            <th>Parameter</th>
+            <th>Type</th>
+            <th>Description</th>
+          </tr>
+          <!-- PARAMETER userID -->
+          <tr>
+            <td>Name</td>
+            <td>Text</td>
+            <td>
+              <pre>e.g. "Amrinder"</pre>
+            </td>
+          </tr>
+          <!-- REQUEST body data -->
+          <tr>
+            <td>Request body data format</td>
+            <td>JSON</td>
+            <td>
+              <pre>None</pre>
+            </td>
+          </tr>
+          <!-- RESPONSE body data -->
+          <tr>
+            <td>Response body data format</td>
+            <td>Text</td>
+            <td>
+              <pre>Amrinder was deleted</pre>
+            </td>
+          </tr>
+        </table>
+      </div>  
+    </div>
+  </body>  
 </html>

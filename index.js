@@ -103,7 +103,7 @@ app.get('/genre', (req, res) => {
     });
 });
 
-//Get all the director
+//Get all the directors
 app.get('/director', (req, res) => {
   Director.find()
     .then((director) => {
@@ -182,6 +182,27 @@ app.get('/user/:Name', (req, res) => {
     });
 });
 
+//Get a director by directorname
+app.get('/director/:Name', (req, res) => {
+  Director.findOne({ Name: req.params.Name })
+    .then((director) => {
+      res.json(director);
+    })
+    .catch((err) => {
+      res.status(500).send('Error: ' + err);
+    });
+});
+
+//Get a genre by genrename
+app.get('/genre/:Name', (req, res) => {
+  Genre.findOne({ Name: req.params.Name })
+    .then((genre) => {
+      res.json(genre);
+    })
+    .catch((err) => {
+      res.status(500).send('Error: ' + err);
+    });
+});
 
 //Create a new user adding it to database
 app.post('/user', (req, res) => {
@@ -210,7 +231,7 @@ app.put('/user/:Name', (req, res) => {
   User.findOneAndUpdate(
     { Name: req.params.Name },
     {
-      $set: {
+      $addtoset: {
         Name: req.body.Name,
         Password: req.body.Password,
         Email: req.body.Email,
