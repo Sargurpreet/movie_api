@@ -10,16 +10,16 @@ let ExtractJWT = passportJWT.ExtractJwt;
 passport.use(
   new LocalStrategy(
     {
-      NameField: 'Name',
-      passwordField: 'password',
+      userField: 'Email',
+      passwordField: 'Password',
     },
-    (Name, password, done) => {
-      console.log(Name + '  ' + password);
-      Users.findOne({ Name: Name }).exec()
+    (Email, Password, done) => {
+      console.log(Email + '  ' + Password);
+      Users.findOne({ Email: Email }).exec()
         .then((user) => {
           if (!user) {
-            console.log('incorrect name');
-            return done(null, false, { message: 'Incorrect name.' });
+            console.log('incorrect email');
+            return done(null, false, { message: 'Incorrect email.' });
           }
 
           console.log('finished');
@@ -50,4 +50,3 @@ passport.use(
     }
   )
 );
-

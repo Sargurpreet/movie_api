@@ -530,3 +530,14 @@ Timestamp: Fri May 26 2023 18:39:25 GMT+0200 (Central European Summer Time)
 ::1 - - [03/Jul/2023:13:46:27 +0000] "GET /user?Name=Barros&Password=123221&Email=barros@gmail.com&Birthday=1993-08-28 HTTP/1.1" 401 -
 ::1 - - [03/Jul/2023:13:48:46 +0000] "POST /user?Name=Barros&Password=123221&Email=barros@gmail.com&Birthday=1993-08-28 HTTP/1.1" 400 21
 ::1 - - [03/Jul/2023:13:49:28 +0000] "POST /user?Name=Ram&Password=123221&Email=ram@gmail.com&Birthday=2006-08-28 HTTP/1.1" 400 21
+::1 - - [04/Jul/2023:19:16:18 +0000] "POST /user?username=lovi&Password=1234321&Name=lovelin&Email=lovlin@gmail.com&Birthday=2003-07-21 HTTP/1.1" 401 -
+::1 - - [04/Jul/2023:19:16:19 +0000] "POST /user?username=lovi&Password=1234321&Name=lovelin&Email=lovlin@gmail.com&Birthday=2003-07-21 HTTP/1.1" 401 -
+::1 - - [04/Jul/2023:19:16:19 +0000] "POST /user?username=lovi&Password=1234321&Name=lovelin&Email=lovlin@gmail.com&Birthday=2003-07-21 HTTP/1.1" 401 -
+::1 - - [04/Jul/2023:19:16:21 +0000] "POST /user?username=lovi&Password=1234321&Name=lovelin&Email=lovlin@gmail.com&Birthday=2003-07-21 HTTP/1.1" 401 -
+::1 - - [04/Jul/2023:19:41:57 +0000] "POST /user?username=lovi&Password=1234321&Name=lovelin&Email=lovlin@gmail.com&Birthday=2003-07-21 HTTP/1.1" 201 165
+::1 - - [04/Jul/2023:20:17:19 +0000] "POST /user?username=lovi&Password=1234321&Name=lovelin&Email=lovlin@gmail.com&Birthday=2003-07-21 HTTP/1.1" 400 22
+::1 - - [04/Jul/2023:20:17:54 +0000] "POST /user?username=lovi&Password=1234321&Name=lovelin&Email=lovlin@gmail.com&Birthday=2003-07-21 HTTP/1.1" 400 22
+::1 - - [04/Jul/2023:20:18:11 +0000] "POST /user?username=lovi&Password=1234321&Name=lovelin&Email=lovlin@gmail.com&Birthday=2003-07-21 HTTP/1.1" 400 30
+::1 - - [04/Jul/2023:20:21:04 +0000] "POST /user?username=lovi&Password=1234321&Name=lovelin&Email=lovlin@gmail.com&Birthday=2003-07-21 HTTP/1.1" 400 30
+::1 - - [04/Jul/2023:20:23:07 +0000] "POST /user?Name=preetsingh&Password=847596&Email=preetsingh@gmail.com&Birthday=2003-07-21 HTTP/1.1" 201 171
+::1 - - [04/Jul/2023:20:24:15 +0000] "POST /user?Name=preetsingh&Password=847596&Email=preetsingh@gmail.com&Birthday=2003-07-21 HTTP/1.1" 400 34
