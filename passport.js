@@ -22,6 +22,11 @@ passport.use(
             return done(null, false, { message: 'Incorrect email.' });
           }
 
+          if(!user.validatePassword(Password)) {
+            console.log('Incorrect password.');
+            return done(null, false, { message: 'Incorrect password.'});
+          }
+
           console.log('finished');
           return done(null, user);
         })

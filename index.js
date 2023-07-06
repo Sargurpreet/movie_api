@@ -16,6 +16,9 @@ const User = Models.User;
 const Genre = Models.Genre;
 const Director = Models.Director;
 
+const cors = require('cors');
+app.use(cors({ origin: '*' }))
+
 const accesLogStream = fs.createWriteStream(path.join(__dirname, 'log.txt'), { flags: 'a' });
 
 app.use(bodyParser.json());
@@ -23,7 +26,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(morgan('common', { stream: accesLogStream }));
 app.use(express.static('public'));
 
-
+const { check, validationResult } = require('express-validator');
 
 let auth = require('./auth')(app);
 const passport = require('passport');
@@ -215,38 +218,28 @@ app.get('/genre/:Name',passport.authenticate('jwt', {session: false}), (req, res
 });
 
 //Create a new user adding it to database
-app.post('/user', (req, res, next) =>{
-  User.findOne({Email: req.body.Email}).then((existingUser) => {
-    if(existingUser) {
-      return res.status(400).send(req.body.Email + 'already exists');
+app.post('/user', 
+  [
+    check('Email', 'Email does not appear to be valid.').isEmail(),
+    check('Password', 'Password is required').not().isEmpty()
+  ], (req, res) => {
+
+    let errors = validationResult(req);
+
+    if(!errors.isEmpty()) {
+      return res.status(422).json({ errors: errors.array() });
     }
 
-    return User.create({
-      Name: req.body.Name,
-      Password: req.body.Password,
-      Email: req.body.Email,
-      Birthday: req.body.Birthday
-    }).then ((newUser) => {
-      res.status(201).json(newUser);
-    });
-  })
-  .catch((error) => {
-    console.error(error);
-    res.status(500).send('Error: ' + error);
-  });
-});
+  let hashedPassword = User.hashPassword(req.body.Password);
 
-
-
-app.post('/user', (req, res, next) => {
-  User.findOne({Email: req.body.Email}). then((existingUser) => {
-    if(existingUser){
-      return res.status(400).send(req.body.Email + ' already exists');
+  User.findOne({ username: req.body.username }).then((existingUser) => {
+    if (existingUser) {
+      return res.status(400).send(req.body.Name + ' already exists');
     }
 
-    return User.create({
+    return Users.create({
       Name: req.body.Name,
-      Password: req.body.Password,
+      Password: hashedPassword,
       Email: req.body.Email,
       Birthday: req.body.Birthday
     }).then((newUser) => {
@@ -261,30 +254,35 @@ app.post('/user', (req, res, next) => {
 
 
 
+
 //Update a user information
-app.put('/user/:Email', passport.authenticate('jwt', { session: false }), (req, res) => {
+app.put('/user/:Email',  passport.authenticate('jwt', {session: false}), (req, res) => {
   User.findOneAndUpdate(
-    { Email: req.params.Email},
+    { Email: req.params.Email },
     {
-      $addtoset: {
+      $set: {
         Name: req.body.Name,        
         Password: req.body.Password,
         Email: req.body.Email,
         Birthday: req.body.Birthday
       }
-    },
-    { new: true }
-  ).then((updateUser) => {
-    if (!updateUser) {
-      return res.status(404).send("Error: User doesn't exist");
-    } else {
-      res.json(updateUser);
     }
-  }).catch((err) => {
-    console.error(err);
-    res.status(500).send('Error: ' + err);
+    )
+      .then((updateUser) => {
+        if (!updateUser) {
+          return res.status(404).send('Error: User was not found');
+        } else {
+          res.json(updateUser);
+        }
+      })
+      .catch((error) => {
+        console.error(error);
+        res.status(500).send('Error: ' + error);
+      });
   });
-});
+
+
+
 
 // Add a movie to the fav list of the user
 app.post('/user/:Email/movie/:MovieID', passport.authenticate('jwt', { session: false }), (req, res) => {
