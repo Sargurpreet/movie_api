@@ -10,7 +10,7 @@ let ExtractJWT = passportJWT.ExtractJwt;
 passport.use(
   new LocalStrategy(
     {
-      userField: 'Email',
+      usernameField: 'Email',
       passwordField: 'Password',
     },
     (Email, Password, done) => {
