@@ -190,27 +190,7 @@ function validatePassword(correctPassword, attemptedPassword) {
 }
 
 //Get a user by username
-app.get('/user/:Name',passport.authenticate('jwt', {session: false}), (req, res) => {
-  const { Name } = req.params;
-  const attemptedPassword = req.query.Password;
-  User.findOne({ Name })
-  .then((user) => {
-    if(!user) {
-      return res.status(404).send('User not found');
-    }
-    const correctPassword = User.Password;
-    const passwordMatch = validatePassword(correctPassword, attemptedPassword);
-    if (!passwordMatch) {
-      return res.status(401).send('Invalid password');
-    }
-    res.json(user);
-  })
-  .catch((err) => {
-    res.status(500).send('Error: ' + err);
-  })
-});
 
-/*
 app.get('/user/:Name',passport.authenticate('jwt', {session: false}), (req, res) => {
   User.findOne({ Name: req.params.Name })
     .then((user) => {
@@ -220,7 +200,7 @@ app.get('/user/:Name',passport.authenticate('jwt', {session: false}), (req, res)
       res.status(500).send('Error: ' + err);
     });
 });
-*/
+
 
 //Get a director by directorname
 app.get('/director/:Name',passport.authenticate('jwt', {session: false}), (req, res) => {
