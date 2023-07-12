@@ -228,6 +228,7 @@ app.get('/genre/:Name',passport.authenticate('jwt', {session: false}), (req, res
 app.post('/user', 
   [
     check('Email', 'Email does not appear to be valid.').isEmail(),
+    check('Name', 'Name does not appear to be valid.').isString(),
     check('Password', 'Password is required').not().isEmpty()
   ], (req, res) => {
 
@@ -237,14 +238,14 @@ app.post('/user',
       return res.status(422).json({ errors: errors.array() });
     }
 
-  let hashedPassword = User.hashPassword(req.body.Password);
-
-  User.findOne({ username: req.body.username }).then((existingUser) => {
+  User.findOne({ Email: req.body.Email }).then((existingUser) => {
     if (existingUser) {
-      return res.status(400).send(req.body.Name + ' already exists');
+      return res.status(400).send(req.body.Email + ' already exists');
     }
 
-    return Users.create({
+    let hashedPassword = User.hashPassword(req.body.Password);
+
+    return User.create({
       Name: req.body.Name,
       Password: hashedPassword,
       Email: req.body.Email,
@@ -270,7 +271,6 @@ app.put('/user/:Email',  passport.authenticate('jwt', {session: false}), (req, r
       $set: {
         Name: req.body.Name,        
         Password: req.body.Password,
-        Email: req.body.Email,
         Birthday: req.body.Birthday
       }
     }
@@ -288,7 +288,7 @@ app.put('/user/:Email',  passport.authenticate('jwt', {session: false}), (req, r
       });
   });
 
-
+  
 
 
 // Add a movie to the fav list of the user
