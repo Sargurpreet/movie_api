@@ -1,6 +1,6 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-const uuid = require('uuid');
+
 
 const morgan = require('morgan');
 const mongoose = require('mongoose');
@@ -46,48 +46,6 @@ app.use(logger);
 
 app.get('/', (req, res) => {
   res.send('Welcome to myFlix');
-});
-
-
-//Create a new director adding it to database
-app.post('/director', (req, res) => {
-  Director.findOne({ Name: req.body.Name }).then((director) => {
-    if (director) {
-      return res.status(400).send(req.body.Name + 'already exists');
-    } else {
-      Director.create({
-        Name: req.body.Name,
-        Bio: req.body.Bio,
-        Birth: req.body.Birth,
-        Death: req.body.Death
-      }).then((director) => {
-        res.status(201).json(director);
-      }).catch((error) => {
-        console.error(error);
-        res.status(500).send('Error: ' + error);
-      });
-    }
-  });
-});
-
-
-//Create a new director adding it to database
-app.post('/genre', (req, res) => {
-  Genre.findOne({ Name: req.body.Name }).then((genre) => {
-    if (genre) {
-      return res.status(400).send(req.body.Name + 'already exists');
-    } else {
-      Genre.create({
-        Name: req.body.Name,
-        Description: req.body.Description
-      }).then((genre) => {
-        res.status(201).json(genre);
-      }).catch((error) => {
-        console.error(error);
-        res.status(500).send('Error: ' + error);
-      });
-    }
-  });
 });
 
 
@@ -190,7 +148,6 @@ function validatePassword(correctPassword, attemptedPassword) {
 }
 
 //Get a user by username
-
 app.get('/user/:Name',passport.authenticate('jwt', {session: false}), (req, res) => {
   User.findOne({ Name: req.params.Name })
     .then((user) => {
@@ -264,16 +221,24 @@ app.post('/user',
 
 
 //Update a user information
-app.put('/user/:Email',  passport.authenticate('jwt', {session: false}), (req, res) => {
+app.put('/user/:Email',  passport.authenticate('jwt', {session: false}), 
+  [
+    check('Email', 'Email does not appear to be valid.').isEmail(),
+    check('Name', 'Name does not appear to be valid.').isString(),
+    check('Password', 'Password is required').not().isEmpty()
+  ],
+  (req, res) => {
+  let hashedPassword = User.hashPassword(req.body.Password);
   User.findOneAndUpdate(
     { Email: req.params.Email },
     {
       $set: {
         Name: req.body.Name,        
-        Password: req.body.Password,
+        Password: hashedPassword,
         Birthday: req.body.Birthday
       }
-    }
+    }, 
+    { new: true }
     )
       .then((updateUser) => {
         if (!updateUser) {
