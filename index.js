@@ -185,7 +185,8 @@ app.get('/genre/:Name',passport.authenticate('jwt', {session: false}), (req, res
 app.post('/user', 
   [
     check('Email', 'Email does not appear to be valid.').isEmail(),
-    check('Name', 'Name does not appear to be valid.').isString(),
+    check('Name', 'Name is required').isLength({min: 5}),
+    check('Name', 'Name does not appear to be valid.').isString(),    
     check('Password', 'Password is required').not().isEmpty()
   ], (req, res) => {
 
@@ -328,4 +329,7 @@ app.use((err, req, res, next) => {
 });
 
 
-app.listen(3000, () => console.log('Server started on port 3000'));
+const port = process.env.PORT || 8080;
+app.listen(port, '0.0.0.0',() => {
+  console.log('Listening on Port ' + port);
+});
