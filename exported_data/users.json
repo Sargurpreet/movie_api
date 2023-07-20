@@ -1,0 +1,5 @@
+{"_id":{"$oid":"64a65764fc1cbf214e7608ac"},"Password":"cabron","Email":"puto@gmail.com","FavoriteMovies":[],"__v":0}
+{"_id":{"$oid":"64a65c19fc1cbf214e7608b5"},"Name":"sharun","Password":"hola145tio","Email":"sharuu","Birthday":{"$date":"1993-07-28T00:00:00Z"},"FavoriteMovies":[],"__v":0}
+{"_id":{"$oid":"64a65c2ffc1cbf214e7608b8"},"Name":"sharii","Password":"hola145tio","Email":"sharuu@gmail.com","Birthday":{"$date":"2000-07-28T00:00:00Z"},"FavoriteMovies":[{"$oid":"6496dce46e939f452e176af3"}],"__v":0}
+{"_id":{"$oid":"64a6bdae8d4223df1d2f1d66"},"Name":"Preet","Password":"14759","Email":"preet121@gmail.com","Birthday":{"$date":"1993-07-28T00:00:00Z"},"FavoriteMovies":[],"__v":0}
+{"_id":{"$oid":"64afac0eb8524ec4856534b6"},"Name":"julia","Password":"$2b$10$jZzYXPtzPDYMlGfruw/y4uSmliewxquxbBzmfT4THwLy3mj8y6YXW","Email":"juiia@gmail.com","Birthday":{"$date":"2006-01-17T00:00:00Z"},"FavoriteMovies":[{"$oid":"6496dd196e939f452e176af4"}],"__v":0}

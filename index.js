@@ -30,12 +30,18 @@ const { check, validationResult } = require('express-validator');
 
 let auth = require('./auth')(app);
 const passport = require('passport');
+const { env } = require('process');
 
-
+/*
 mongoose.connect('mongodb://localhost:27017/cfDB', {
   useNewUrlParser: true,
   useUnifiedTopology: true
 });
+*/
+
+mongoose.connect( process.env.CONNECTION_URI, 
+{ useNewUrlParser: true, useUnifiedTopology: true });
+
 
 let logger = (req, res, next) => {
   console.log(req.url);
