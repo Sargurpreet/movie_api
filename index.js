@@ -31,15 +31,15 @@ const { check, validationResult } = require('express-validator');
 let auth = require('./auth')(app);
 const passport = require('passport');
 const { env } = require('process');
-
+const localDB = 'mongodb://localhost:27017/cfDB'
 /*
-mongoose.connect('mongodb://localhost:27017/cfDB', {
+mongoose.connect('const localDB = 'mongodb://localhost:27017/cfDB', {
   useNewUrlParser: true,
   useUnifiedTopology: true
 });
 */
 
-mongoose.connect( process.env.CONNECTION_URI, 
+mongoose.connect( process.env.CONNECTION_URI || localDB, 
 { useNewUrlParser: true, useUnifiedTopology: true });
 
 
