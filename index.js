@@ -58,6 +58,7 @@ app.get('/', (req, res) => {
 //Get all the movies
 app.get('/movie',/*passport.authenticate('jwt', {session: false}),*/ (req, res) => {
   Movie.find()
+    .populate('Director Genre')
     .then((movie) => {
       res.status(201).json(movie);
     })
@@ -95,7 +96,7 @@ app.get('/director',passport.authenticate('jwt', {session: false}), (req, res) =
 
 //Read one movie by title
 app.get('/movie/:title',passport.authenticate('jwt', {session: false}), (req, res) => {
-  Movie.findOne({ Title: req.params.title }).then((movie) => {
+  Movie.findOne({ Title: req.params.title }).populate('Director Genre').then((movie) => {
     res.status(200).json(movie);
   }).catch((err) => {
     console.error(err);
