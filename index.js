@@ -373,7 +373,7 @@ app.delete('/user/:Email', (req, res) => {
 
 
 //Delete the movie from the users 
-app.delete('/user/:Email/movie/:MovieID', passport.authenticate('jwt', { session: false }),(req, res) => {
+app.delete('/user/:Email/movie/:MovieId', passport.authenticate('jwt', { session: false }),(req, res) => {
   User.findOneAndUpdate(
     { Email: req.params.Email },
     {

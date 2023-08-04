@@ -127,7 +127,7 @@
       </div>
       <!-- GET movie data about a single movie -->
       <div class="endpoint">
-        <h2><span class="http-method get">GET</span> /movies/{title}</h2>
+        <h2><span class="http-method get">GET</span> /movie/{title}</h2>
         <p>Return data (Title, Description, Director, Genre, ImagePath, whether it's featured or not) about a single movie by title to the user</p>
         <table>
           <tr>
@@ -176,7 +176,7 @@
       </div>
       <!-- GET all movies related to a specific genre -->
       <div class="endpoint">
-        <h2><span class="http-method get">GET</span> /movies/genre/{genreId}</h2>
+        <h2><span class="http-method get">GET</span> /movie/genre/{genreId}</h2>
         <p>Return all movies that are related to a specific genre</p>
         <table>
           <tr>
@@ -320,7 +320,7 @@
       </div>
       <!-- GET all movies related to a specific director -->
       <div class="endpoint">
-        <h2><span class="http-method get">GET</span> /movies/director/{directorId}</h2>
+        <h2><span class="http-method get">GET</span> /movie/director/{directorId}</h2>
         <p>Return all movies that are related to a specific director</p>
         <table>
           <tr>
@@ -510,7 +510,7 @@
       </div>
       <!-- GET details about a user by user name -->
       <div class="endpoint">
-        <h2><span class="http-method get">GET</span> /directors/{Name}</h2>
+        <h2><span class="http-method get">GET</span> /director/{Name}</h2>
         <p>Return data about a director (name, bio, birth year, death year) by director name</p>
         <table>
           <tr>
@@ -556,7 +556,7 @@
       </div> 
       <!-- POST add a new favorite movie -->
       <div class="endpoint">
-        <h2><span class="http-method post">POST</span> /users/{Name}/movies/{MovieID}</h2>
+        <h2><span class="http-method post">POST</span> /user/{Name}/movies/{MovieID}</h2>
         <p>Allow users to add movies to their list of favorite movies</p>
         <table>
           <tr>
@@ -613,7 +613,7 @@
       </div>    
       <!-- PUT update user info -->
       <div class="endpoint">
-        <h2><span class="http-method put">PUT</span> /user/{Name}</h2>
+        <h2><span class="http-method put">PUT</span> /user/{Email}</h2>
         <p>Allow users to update their user info</p>
         <table>
           <tr>
@@ -666,7 +666,7 @@
       </div>  
       <!-- DELETE remove a favorite movie -->
       <div class="endpoint">
-        <h2><span class="http-method delete">DELETE</span> /user/{Name}/movie/{MovieID}</h2>
+        <h2><span class="http-method delete">DELETE</span> /user/{Email}/movie/{MovieID}</h2>
         <p>Allow users to remove a movie from their list of favorite movies</p>
         <table>
           <tr>
@@ -722,7 +722,7 @@
       </div>     
       <!-- DELETE a user -->
       <div class="endpoint">
-        <h2><span class="http-method delete">DELETE</span> /users/{Name}</h2>
+        <h2><span class="http-method delete">DELETE</span> /users/{Email}</h2>
         <p>Allow existing users to deregister and delete their user account</p>
         <table>
           <tr>
