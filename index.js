@@ -173,7 +173,7 @@ app.get('/movie/genre/:genreName', passport.authenticate('jwt', { session: false
   const { genreName } = req.params;
 
   // Find the genre by name
-  Genre.find({ Name: genreName }) 
+  Genre.findOne({ Name: genreName }) 
     .then((genre) => {
       if (!genre) {
         return res.status(404).json({ message: 'Genre not found.' });
