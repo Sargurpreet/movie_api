@@ -301,9 +301,11 @@ app.put('/user/:Email',  passport.authenticate('jwt', {session: false}),
     check('Password', 'Password is required').not().isEmpty()
   ],
   (req, res) => {
+
+    const { Email } = req.params;
   let hashedPassword = User.hashPassword(req.body.Password);
   User.findOneAndUpdate(
-    { Email: req.params.Email },
+    { Email },
     {
       $set: {
         Name: req.body.Name,        

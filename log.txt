@@ -618,3 +618,17 @@ Timestamp: Fri May 26 2023 18:39:25 GMT+0200 (Central European Summer Time)
 ::1 - - [13/Jul/2023:08:31:21 +0000] "PUT /user HTTP/1.1" 404 143
 ::1 - - [13/Jul/2023:08:31:24 +0000] "GET /user HTTP/1.1" 401 -
 ::1 - - [13/Jul/2023:08:31:59 +0000] "GET /movie HTTP/1.1" 401 -
+127.0.0.1 - - [04/Aug/2023:17:02:07 +0000] "GET /movies HTTP/1.1" 404 145
+127.0.0.1 - - [04/Aug/2023:17:02:12 +0000] "GET /movie HTTP/1.1" 401 -
+127.0.0.1 - - [04/Aug/2023:17:02:40 +0000] "POST /login?Name=Gurinder&Password=hibro HTTP/1.1" 400 49
+127.0.0.1 - - [04/Aug/2023:17:03:13 +0000] "POST /login?Name=Gurinder&Password=hibro HTTP/1.1" 400 49
+127.0.0.1 - - [04/Aug/2023:17:04:07 +0000] "POST /login?Name=Gurinder&Password=hibro&Email=sim@gmail.com HTTP/1.1" 400 49
+127.0.0.1 - - [04/Aug/2023:19:16:24 +0000] "POST /login?Name=Gurinder&Password=hibro&Email=sim@gmail.com HTTP/1.1" 400 49
+127.0.0.1 - - [04/Aug/2023:19:17:14 +0000] "POST /user HTTP/1.1" 201 216
+127.0.0.1 - - [04/Aug/2023:19:18:07 +0000] "POST /user/sim@gmail.com HTTP/1.1" 404 158
+127.0.0.1 - - [04/Aug/2023:19:19:11 +0000] "POST /login?Name=Gurinder&Password=hibro HTTP/1.1" 200 741
+127.0.0.1 - - [04/Aug/2023:19:19:32 +0000] "PUT /user/sim@gmail.com HTTP/1.1" 500 6
+127.0.0.1 - - [04/Aug/2023:19:24:38 +0000] "GET /user HTTP/1.1" 401 -
+127.0.0.1 - - [04/Aug/2023:19:25:02 +0000] "POST /login?Name=Gurinder&Password=hibro HTTP/1.1" 200 741
+127.0.0.1 - - [04/Aug/2023:19:25:27 +0000] "GET /user HTTP/1.1" 201 1084
+127.0.0.1 - - [04/Aug/2023:19:25:59 +0000] "PUT /user/sim@gmail.com HTTP/1.1" 200 216
