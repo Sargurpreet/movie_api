@@ -104,7 +104,7 @@ app.get('/movie/:title',passport.authenticate('jwt', {session: false}), (req, re
   });
 });
 
-
+/*
 
 //Read movies by director
 app.get('/movie/director/:directorId',passport.authenticate('jwt', {session: false}), (req, res) => {
@@ -134,6 +134,71 @@ app.get('/movie/genre/:genreId',passport.authenticate('jwt', {session: false}), 
       res.status(500).send('Error:' + err);
     })
 });
+*/
+
+app.get('/movie/director/:directorName', passport.authenticate('jwt', { session: false }), (req, res) => {
+  const { directorName } = req.params;
+
+  // Find the director by name
+  Director.findOne({ name: directorName }) 
+    .then((director) => {
+      if (!director) {
+        return res.status(404).json({ message: 'Director not found.' });
+      }
+
+      // Find movies using the director ObjectId
+      Movie.find({ Director: director._id }) 
+        .populate('Genre Director')
+        .then((movies) => {
+          if (!movies || movies.length === 0) {
+            return res.status(404).json({ message: 'No movies found for the given director.' });
+          }
+          res.status(200).json(movies);
+        })
+        .catch((err) => {
+          console.error('Error:', err);
+          res.status(500).json({ message: 'An error occurred.' });
+        });
+    })
+    .catch((err) => {
+      console.error('Error:', err);
+      res.status(500).json({ message: 'An error occurred.' });
+    });
+});
+
+
+
+
+app.get('/movie/genre/:genreName', passport.authenticate('jwt', { session: false }), (req, res) => {
+  const { genreName } = req.params;
+
+  // Find the genre by name
+  Genre.findOne({ name: genreName }) 
+    .then((genre) => {
+      if (!genre) {
+        return res.status(404).json({ message: 'Genre not found.' });
+      }
+
+      // Find movies using the genre ObjectId
+      Movie.find({ Genre: genre._id }) 
+        .populate('Genre Director')
+        .then((movies) => {
+          if (!movies || movies.length === 0) {
+            return res.status(404).json({ message: 'No movies found for the given genre.' });
+          }
+          res.status(200).json(movies);
+        })
+        .catch((err) => {
+          console.error('Error:', err);
+          res.status(500).json({ message: 'An error occurred.' });
+        });
+    })
+    .catch((err) => {
+      console.error('Error:', err);
+      res.status(500).json({ message: 'An error occurred.' });
+    });
+});
+
 
 
 
