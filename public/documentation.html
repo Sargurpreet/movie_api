@@ -720,6 +720,55 @@
           </tr>
         </table>
       </div>     
+      <!-- GET all favorite movies of a user -->
+      <div class="endpoint">
+        <h2><span class="http-method get">GET</span> /user/{Email}/favorites</h2>
+        <p>Return data (Title, Description, Director, Genre, ImagePath, whether it's featured or not) about a single movie by title to the user</p>
+        <table>
+          <tr>
+            <th>Parameter</th>
+            <th>Type</th>
+            <th>Description</th>
+          </tr>
+          <!-- PARAMETER title -->
+          <tr>
+            <td>title</td>
+            <td>Text</td>
+            <td>
+              <pre>e.g. "Funny people", "Interstellar"</pre>
+            </td>
+          </tr>
+          <!-- REQUEST body data -->
+          <tr>
+            <td>Request body data format</td>
+            <td>JSON</td>
+            <td>
+              <pre>None</pre>
+            </td>
+          </tr>
+          <!-- RESPONSE body data -->
+          <tr>
+            <td>Response body data format</td>
+            <td>JSON</td>
+            <td>
+              <pre>
+
+[
+  {
+    "_id": "6496dce46e939f452e176af3",
+    "Title": "Funny people",
+    "Description": "Comedian George Simmons discovers that he has a terminal illness. Eager to form a true friendship, he agrees to take a rookie under his wing as an opening act.",
+    "Director": "6496d85afd12b96beb80673a",
+    "Genre": "6496d712fd12b96beb806726",
+    "ImagePath": "funnyP.png",
+    "Featured": false
+  }
+]
+              </pre>
+            </td>
+          </tr>
+        </table>
+      </div>
       <!-- DELETE a user -->
       <div class="endpoint">
         <h2><span class="http-method delete">DELETE</span> /users/{Email}</h2>
