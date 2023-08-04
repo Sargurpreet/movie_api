@@ -140,7 +140,7 @@ app.get('/movie/director/:directorName', passport.authenticate('jwt', { session:
   const { directorName } = req.params;
 
   // Find the director by name
-  Director.findOne({ name: directorName }) 
+  Director.findOne({ Name: directorName }) 
     .then((director) => {
       if (!director) {
         return res.status(404).json({ message: 'Director not found.' });
@@ -173,7 +173,7 @@ app.get('/movie/genre/:genreName', passport.authenticate('jwt', { session: false
   const { genreName } = req.params;
 
   // Find the genre by name
-  Genre.findOne({ name: genreName }) 
+  Genre.find({ Name: genreName }) 
     .then((genre) => {
       if (!genre) {
         return res.status(404).json({ message: 'Genre not found.' });
