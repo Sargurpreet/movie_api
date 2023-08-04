@@ -353,6 +353,23 @@ app.post('/user/:Email/movie/:MovieID', passport.authenticate('jwt', { session: 
     });
 });
 
+app.get('/user/:Email/favorites', passport.authenticate('jwt', { session: false }), (req, res) => {
+  const userEmail = req.params.Email;
+
+  User.findOne({ Email: userEmail })
+    .populate('FavoriteMovies')
+    .then((user) => {
+      if (!user) {
+        return res.status(404).json({ message: 'User not found.' });
+      }
+
+      res.status(200).json(user.FavoriteMovies);
+    })
+    .catch((err) => {
+      console.error(err);
+      res.status(500).json({ message: 'An error occurred.' });
+    });
+});
 
 
 
